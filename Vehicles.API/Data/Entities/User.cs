@@ -38,11 +38,15 @@ namespace Vehicles.API.Data.Entities
         [Display(Name = "Foto")]
         public String ImageFullPath => ImageId == Guid.Empty
             ? $"https://localhost:44352/images/no-image.png"
-            : $"https://localhost:44352/users/{ImageId}";
+            : $"https://localhost:44352/images/users/{ImageId}.jpg";
 
         [Display(Name = "Tipo de usuario")]
         public UserType UserType { get; set; }
 
         public String FullName => $"{FirstName} {LastName}";
+        public ICollection<Vehicle> Vehicles { get; set; }
+
+        [Display(Name = "# Vehículos")]
+        public int VehiclesCount => Vehicles == null ? 0 : Vehicles.Count;
     }
 }
