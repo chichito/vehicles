@@ -8,7 +8,7 @@ namespace Vehicles.API.Data.Entities
 {
     public class Detail
     {
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "Historia")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
