@@ -40,7 +40,7 @@ namespace Vehicles.API.Helpers
         {
             return new UserViewModel
             {
-                Address = user.Address,
+                Address = user.Address,                
                 Document = user.Document,
                 DocumentTypeId = user.DocumentType.Id,
                 DocumentTypes = _combosHelper.GetComboDocumentTypes(),

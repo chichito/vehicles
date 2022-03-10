@@ -172,12 +172,12 @@ namespace Vehicles.API.Migrations
 
             modelBuilder.Entity("Vehicles.API.Data.Entities.Detail", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Historyid")
+                    b.Property<int>("HistoryId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("LaborPrice")
@@ -192,9 +192,9 @@ namespace Vehicles.API.Migrations
                     b.Property<decimal>("SparePartsPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
-                    b.HasIndex("Historyid");
+                    b.HasIndex("HistoryId");
 
                     b.HasIndex("ProcedureId");
 
@@ -223,7 +223,7 @@ namespace Vehicles.API.Migrations
 
             modelBuilder.Entity("Vehicles.API.Data.Entities.History", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -243,7 +243,7 @@ namespace Vehicles.API.Migrations
                     b.Property<int>("VehicleId")
                         .HasColumnType("int");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
@@ -290,6 +290,11 @@ namespace Vehicles.API.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CountryCode")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
 
                     b.Property<string>("Document")
                         .IsRequired()
@@ -517,7 +522,7 @@ namespace Vehicles.API.Migrations
                 {
                     b.HasOne("Vehicles.API.Data.Entities.History", "History")
                         .WithMany("Details")
-                        .HasForeignKey("Historyid")
+                        .HasForeignKey("HistoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

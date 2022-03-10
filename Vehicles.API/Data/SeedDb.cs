@@ -25,8 +25,8 @@ namespace Vehicles.API.Data
             await CheckProcedureAsync();
             await CheckRolesAsync();
             await CheckUserAsync("1010", "Fernando", "Cando", "fernandocando@hotmail.com", "0988674789", "Av. Jaime Roldos Aguilera", UserType.Admin);
-            await CheckUserAsync("2020", "Fernanda", "Cardenas", "fernandacardenas@hotmail.com", "0988674789", "Av. Jaime Roldos Aguilera", UserType.User);
-            await CheckUserAsync("3030", "Luis", "Chacon", "luischacon@hotmail.com", "0988674789", "Av. Jaime Roldos Aguilera", UserType.User);
+            //await CheckUserAsync("2020", "Fernanda", "Cardenas", "fernandacardenas@hotmail.com", "0988674789", "Av. Jaime Roldos Aguilera", UserType.User);
+            //await CheckUserAsync("3030", "Luis", "Chacon", "luischacon@hotmail.com", "0988674789", "Av. Jaime Roldos Aguilera", UserType.User);
         }
 
         private async Task CheckUserAsync(string document, string firstName, string lastName, string email, string phoneNumber, string address, UserType userType)
@@ -36,6 +36,7 @@ namespace Vehicles.API.Data
             {
                 user = new User
                 {
+                    CountryCode = "573",
                     Address = address,
                     Document = document,
                     DocumentType = _context.DocumentTypes.FirstOrDefault(x => x.Description == "Cédula"),
@@ -48,6 +49,10 @@ namespace Vehicles.API.Data
                 };
                 await _userHelper.AddUserAsync(user, "123456");
                 await _userHelper.AddUserToRoleAsync(user, userType.ToString());
+
+                string token = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+                await _userHelper.ConfirmEmailAsync(user, token);
+
             }
         }
 
